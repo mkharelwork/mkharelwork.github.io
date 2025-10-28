@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const projects = [
         {
             title: "AI-Driven SIEM Automation Project",
-            imageUrl: "https://im.ge/i/AI-SIEM-Automation.16g3nI", // AI-generated image URL
+            imageUrl: "siem.png", // UPDATED FROM SCREENSHOT
             status: "Completed",
-            objective: "Designed an automated SOAR pipeline to reduce analyst response time for security incidents within a cloud-based SIEM environment.",
+            objective: "Designed and implemented an automated Security Orchestration, Automation, and Response (SOAR) pipeline to reduce analyst response time for security incidents within a cloud-based SIEM environment.",
             actions: [
                 "Deployed and configured the Elastic Stack (SIEM) on AWS EC2.",
                 "Integrated Elastic Defend (EDR) on a Windows Server endpoint for real-time threat detection.",
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             title: "Cloud-Based Cybersecurity Detection Lab",
-            imageUrl: "https://im.ge/i/Cloud-Cybersecurity-Lab.16g14m", // AI-generated image URL
+            imageUrl: "detec.png", // UPDATED FROM SCREENSHOT
             status: "Completed",
             objective: "Architected a cloud-native cybersecurity lab in AWS to simulate attacker activities and build real-time detection and alerting capabilities.",
             actions: [
@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             title: "Open Source Intelligence (OSINT) Project",
-            imageUrl: "https://im.ge/i/OSINT-SpiderFoot.16g2F0", // AI-generated image URL
+            imageUrl: "osnit.png", // UPDATED FROM SCREENSHOT
             status: "Completed",
-            objective: "Deployed the SpiderFoot OSINT tool to automate the collection of publicly available data and identify potential security risks.",
+            objective: "Deployed and operated the SpiderFoot OSINT tool to automate the collection and analysis of publicly available data and identify potential security risks.",
             actions: [
                 "Installed and configured SpiderFoot on Kali Linux to conduct automated scans against domains, emails, and IP addresses.",
                 "Analyzed scan results to identify attack surfaces, data leakage, and potential vulnerabilities."
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             title: "Self-Hosted OpenVPN Server Project",
-            imageUrl: "https://im.ge/i/OpenVPN-Server.16g1QW", // AI-generated image URL
+            imageUrl: "vpn.png", // UPDATED FROM SCREENSHOT
             status: "In Progress",
             objective: "Built a secure, private VPN server to enhance online privacy and establish encrypted remote access to a home lab environment.",
             actions: [
@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         {
             title: "AI Agent Integration with MCP Server",
-            imageUrl: "https://im.ge/i/AI-MCP-Server.16g3fW", // AI-generated image URL
+            imageUrl: "mcp.png", // UPDATED FROM SCREENSHOT
             status: "In Progress",
-            objective: "Enable dynamic, tool-based interactions between AI models and external APIs using a custom server.",
+            objective: "Built a custom Model Context Protocol (MCP) server in Python to enable dynamic tool-based interactions between AI models and external APIs.",
             actions: [
-                "Built a custom Model Context Protocol (MCP) server in Python.",
-                "Developed a tool that fetches real-time weather data using the OpenWeatherMap API.",
+                "Developed a tool to fetch real-time weather data using the OpenWeatherMap API.",
                 "Connected the MCP server to Claude Desktop, allowing the AI agent to autonomously call APIs.",
-                "Integrated a Google Sheets server to automate spreadsheet creation via service accounts and OAuth."
+                "Integrated a Google Sheets MCP server to automate spreadsheet creation and updates in Google Drive.",
+                "Designed a workflow where the AI could combine multiple tools to fetch and compile data automatically."
             ],
             technologies: ["Python", "MCP SDK", "OpenWeather API", "Google Cloud", "Claude Desktop"]
         }
