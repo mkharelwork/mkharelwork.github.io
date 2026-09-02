@@ -20,18 +20,16 @@
 
     <script>
         tailwind.config = {
-            darkMode: 'media', // This tells Tailwind to use the user's system preference (Light or Dark mode)
             theme: {
                 extend: {
                     colors: {
                         slate: {
                             850: '#151e2e',
-                            950: '#050505', // Deep dark background for dark mode
+                            950: '#050505',
                         }
                     },
                     animation: {
                         'blob': 'blob 7s infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         blob: {
@@ -48,19 +46,15 @@
     <style>
         .animation-delay-2000 { animation-delay: 2s; }
         .animation-delay-4000 { animation-delay: 4s; }
-        html { scroll-behavior: smooth; }
         
         /* Custom Scrollbar for a premium feel */
         ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 4px; }
-        @media (prefers-color-scheme: dark) {
-            ::-webkit-scrollbar-thumb { background: #334155; }
-            ::-webkit-scrollbar-thumb:hover { background: #475569; }
-        }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
     </style>
 </head>
-<body>
+<body class="bg-[#050505] text-slate-300">
     <!-- The React application will load inside this div -->
     <div id="root"></div>
 
@@ -68,8 +62,7 @@
         const { useState, useEffect } = React;
 
         // =====================================================================
-        // 📁 EDIT YOUR PROJECTS HERE
-        // Add, remove, or modify the projects displayed in the "Deployments" section
+        //  EDIT PROJECTS HERE
         // =====================================================================
         const projects = [
             {
@@ -79,7 +72,7 @@
                 description: "Identified manual back-ups in security alert triage. Engineered automated incident response workflows using Tines and Webhooks, integrating AI-driven summarization tools to parse raw SIEM data and drastically reduce analyst response times.",
                 tech: ["Tines", "Python", "SIEM", "Webhooks", "AI Integration"],
                 image: "siem.png",
-                icon: "fa-solid fa-bolt text-cyan-500",
+                icon: "fa-solid fa-bolt text-cyan-400",
                 status: "Production"
             },
             {
@@ -89,7 +82,7 @@
                 description: "Architected a localized OpenVPN server infrastructure enforcing strict tunneling protocols. Established a centralized Public Key Infrastructure (PKI) to manage client certificates and enforce identity verification.",
                 tech: ["OpenVPN", "PKI", "Linux", "NAT/IP Tables"],
                 image: "vpn.png",
-                icon: "fa-solid fa-lock text-indigo-500",
+                icon: "fa-solid fa-lock text-indigo-400",
                 status: "Deployed"
             },
             {
@@ -99,7 +92,7 @@
                 description: "Deployed and maintained a comprehensive virtualized environment using Proxmox. Managed self-hosted networking, DNS filtering, reverse proxies, and system monitoring utilizing Linux containers and VMs.",
                 tech: ["Proxmox", "Linux", "LXC/VMs", "DNS", "Reverse Proxy"],
                 image: "mcp.png",
-                icon: "fa-solid fa-server text-purple-500",
+                icon: "fa-solid fa-server text-purple-400",
                 status: "Active"
             },
             {
@@ -109,13 +102,13 @@
                 description: "Synthesized complex technical workflows for proactive threat monitoring. Validated seamless, secure traffic flow across simulated enterprise boundaries to mitigate unauthorized access.",
                 tech: ["Telemetry", "TCP/IP", "OSINT", "Linux"],
                 image: "osnit.png",
-                icon: "fa-solid fa-shield-halved text-emerald-500",
+                icon: "fa-solid fa-shield-halved text-emerald-400",
                 status: "Active"
             }
         ];
 
         // =====================================================================
-        // 🧠 EDIT YOUR SKILLS HERE
+        //  EDIT  SKILLS HERE
         // =====================================================================
         const skills = [
             { name: "Enterprise Networking (TCP/IP, LAN/WAN, VPN)", level: 90 },
@@ -126,7 +119,7 @@
         ];
 
         // =====================================================================
-        // 💼 EDIT YOUR WORK EXPERIENCE HERE
+        //  EDIT  WORK EXPERIENCE HERE
         // =====================================================================
         const experience = [
             {
@@ -146,71 +139,91 @@
         function App() {
             const [scrolled, setScrolled] = useState(false);
             const [activeProject, setActiveProject] = useState(null);
+            const [emailCopied, setEmailCopied] = useState(false);
 
-            // Function to handle smooth scrolling without changing the URL hash
+            // Function to handle smooth scrolling WITHOUT adding # to the URL
             const scrollToSection = (e, id) => {
                 e.preventDefault();
                 const element = document.getElementById(id);
                 if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
+                    const offset = 80; // Offset for the fixed navbar
+                    const elementPosition = element.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - offset;
+                  
+                    window.scrollTo({
+                         top: offsetPosition,
+                         behavior: "smooth"
+                    });
                 }
             };
 
-            // This tracks when the user scrolls down the page to change the navigation bar color
+            // Smart Email Button: Copies email to clipboard, shows feedback, then opens mail app
+            const handleEmailClick = (e) => {
+                e.preventDefault();
+                
+                // Fallback copy method that works universally
+                const textArea = document.createElement("textarea");
+                textArea.value = "mkharelwork@gmail.com";
+                document.body.appendChild(textArea);
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    setEmailCopied(true);
+                    setTimeout(() => setEmailCopied(false), 2000); // Reset button text after 2 seconds
+                } catch (err) {
+                    console.error('Oops, unable to copy', err);
+                }
+                document.body.removeChild(textArea);
+
+                // Attempt to open default mail client
+                setTimeout(() => {
+                    window.location.href = "mailto:mkharelwork@gmail.com";
+                }, 500);
+            };
+
+            // Tracks when user scrolls to change nav background
             useEffect(() => {
-                const handleScroll = () => {
-                    setScrolled(window.scrollY > 20);
-                };
+                const handleScroll = () => setScrolled(window.scrollY > 20);
                 window.addEventListener('scroll', handleScroll);
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
             return (
-                // Main Container: Handles Light/Dark mode backgrounds (bg-slate-50 for light, bg-slate-950 for dark)
-                <div className="min-h-screen font-sans relative selection:bg-cyan-500/30 selection:text-cyan-900 dark:selection:text-white overflow-x-hidden bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-300 transition-colors duration-300">
+                <div className="min-h-screen font-sans relative selection:bg-cyan-500/30 selection:text-white overflow-x-hidden text-slate-300">
                     
-                    {/* Background Visual Effects (Blobs and Grid) */}
+                    {/* Background Visual Effects */}
                     <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-                        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-400/20 dark:bg-cyan-900/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] animate-blob" />
-                        <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-400/20 dark:bg-indigo-900/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000" />
-                        <div className="absolute bottom-[-20%] left-[20%] w-[500px] h-[500px] bg-purple-400/20 dark:bg-purple-900/10 rounded-full mix-blend-multiply dark:mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000" />
-                        
-                        {/* Grid Pattern overlay */}
-                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMTUwLDE1MCwxNTAsMC4wNykiLz48L3N2Zz4=')] dark:bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,black,transparent)] z-0" />
+                        <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-cyan-900/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob" />
+                        <div className="absolute top-[20%] right-[-10%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-2000" />
+                        <div className="absolute bottom-[-20%] left-[20%] w-[500px] h-[500px] bg-purple-900/20 rounded-full mix-blend-screen filter blur-[120px] animate-blob animation-delay-4000" />
+                        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,black,transparent)] z-0" />
                     </div>
 
-                    {/* ===================================================================== */}
-                    {/* NAVIGATION BAR */}
-                    {/* ===================================================================== */}
                     {}
                     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-                        scrolled ? 'bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl border-b border-slate-200 dark:border-white/5 py-4 shadow-lg dark:shadow-black/50' : 'bg-transparent py-6'
+                        scrolled ? 'bg-[#050505]/80 backdrop-blur-xl border-b border-white/5 py-4 shadow-lg shadow-black/50' : 'bg-transparent py-6'
                     }`}>
                         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
                             <div className="flex items-center gap-3">
                                 <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)]">
                                     MK
                                 </div>
-                                <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Mohit Kharel</span>
+                                <span className="text-xl font-bold tracking-tight text-white">Mohit Kharel</span>
                             </div>
-                            <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
-                                <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Overview</a>
-                                <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Solutions</a>
-                                <a href="#resume" onClick={(e) => scrollToSection(e, 'resume')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Service Record</a>
-                                <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Contact</a>
+                            <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+                                <a onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-400 transition-colors cursor-pointer">Overview</a>
+                                <a onClick={(e) => scrollToSection(e, 'projects')} className="hover:text-cyan-400 transition-colors cursor-pointer">Solutions</a>
+                                <a onClick={(e) => scrollToSection(e, 'resume')} className="hover:text-cyan-400 transition-colors cursor-pointer">Service Record</a>
+                                <a onClick={(e) => scrollToSection(e, 'contact')} className="hover:text-cyan-400 transition-colors cursor-pointer">Contact</a>
                             </div>
                         </div>
                     </nav>
 
-                    {/* ===================================================================== */}
-                    {/* HERO SECTION (Top part of the website) */}
-                    {/* ===================================================================== */}
                     {}
                     <section id="about" className="relative pt-40 pb-20 md:pt-48 md:pb-32 z-10 flex flex-col items-center text-center">
                         <div className="max-w-4xl mx-auto px-6 relative flex flex-col items-center">
                             
-                            {/* Security+ Status Badge */}
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-sm font-medium mb-8 backdrop-blur-md shadow-sm dark:shadow-lg">
+                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/50 border border-white/10 text-slate-300 text-sm font-medium mb-8 backdrop-blur-md shadow-lg">
                                 <span className="relative flex h-2.5 w-2.5">
                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                                     <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
@@ -218,39 +231,36 @@
                                 CompTIA Security+ Expected 10/2026
                             </div>
                             
-                            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 leading-[1.1] text-slate-900 dark:text-white">
+                            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter mb-6 leading-[1.1] text-white">
                                 Engineering robust <br className="hidden md:block"/>
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-indigo-500 to-purple-600 dark:from-cyan-400 dark:via-indigo-400 dark:to-purple-400">
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">
                                     infrastructure & security.
                                 </span>
                             </h1>
                             
-                            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mb-10 leading-relaxed font-light">
+                            <p className="text-lg md:text-xl text-slate-400 max-w-2xl mb-10 leading-relaxed font-light">
                                 Senior IT student specializing in cyber security, system monitoring, and hardware deployment. I build practical technical solutions, automate workflows, and prevent infrastructure problems before they impact users.
                             </p>
                             
                             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-                                <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} className="px-8 py-4 bg-slate-900 text-white dark:bg-white dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-lg dark:shadow-[0_0_30px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2 cursor-pointer">
+                                <a onClick={(e) => scrollToSection(e, 'projects')} className="px-8 py-4 bg-white text-slate-950 hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2 cursor-pointer">
                                     View Solutions
                                     <i className="fa-solid fa-arrow-right text-sm"></i>
                                 </a>
-                                <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="px-8 py-4 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-xl font-medium transition-all shadow-sm flex items-center justify-center cursor-pointer">
+                                <a onClick={(e) => scrollToSection(e, 'contact')} className="px-8 py-4 bg-slate-900/50 hover:bg-slate-800 border border-white/10 text-white rounded-xl font-medium transition-all shadow-sm flex items-center justify-center cursor-pointer">
                                     Contact Me
                                 </a>
                             </div>
                         </div>
                     </section>
 
-                    {/* ===================================================================== */}
-                    {/* PROJECTS / SOLUTIONS SECTION */}
-                    {/* ===================================================================== */}
                     {}
-                    <section id="projects" className="py-24 relative z-10 border-t border-slate-200 dark:border-white/5 bg-slate-100/50 dark:bg-slate-900/20">
+                    <section id="projects" className="py-24 relative z-10 border-t border-white/5 bg-slate-900/20">
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="mb-16 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-4">
                                 <div>
-                                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Featured Deployments</h2>
-                                    <p className="text-slate-600 dark:text-slate-400 text-lg font-light max-w-2xl">High-impact architectural deployments demonstrating proactive security, virtualization, and networking.</p>
+                                    <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Featured Deployments</h2>
+                                    <p className="text-slate-400 text-lg font-light max-w-2xl">High-impact architectural deployments demonstrating proactive security, virtualization, and networking.</p>
                                 </div>
                             </div>
 
@@ -260,34 +270,30 @@
                                         key={project.id} 
                                         onMouseEnter={() => setActiveProject(project.id)}
                                         onMouseLeave={() => setActiveProject(null)}
-                                        className="group relative bg-white dark:bg-slate-900/40 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/50 dark:hover:border-cyan-500/30 flex flex-col shadow-xl shadow-slate-200/50 dark:shadow-[0_8px_30px_rgb(0,0,0,0.5)] hover:shadow-2xl dark:hover:shadow-[0_8px_30px_rgb(0,0,0,0.8)]"
+                                        className="group relative bg-slate-900/40 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/30 flex flex-col shadow-[0_8px_30px_rgb(0,0,0,0.5)] hover:shadow-[0_8px_30px_rgb(0,0,0,0.8)]"
                                     >
                                         <div className={`absolute top-0 left-0 w-full h-[3px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition-opacity duration-500 ${activeProject === project.id ? 'opacity-100' : ''}`} />
 
-                                        {/* Image Showcase - AUTO FIT IMPLEMENTED HERE */}
-                                        <div className="w-full aspect-[16/9] bg-slate-100 dark:bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-slate-100 dark:border-white/5 p-4 md:p-8">
-                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-200 dark:from-slate-900 via-transparent to-transparent opacity-80 z-10" />
+                                        {/* Image Container with object-cover so it auto-fits beautifully */}
+                                        <div className="w-full aspect-[16/9] bg-slate-950 relative overflow-hidden flex items-center justify-center border-b border-white/5 p-4 md:p-8">
+                                            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10" />
                                             
-                                            {/* Window UI Wrapper */}
-                                            <div className="w-full h-full relative z-0 rounded-lg overflow-hidden border border-slate-300 dark:border-white/10 shadow-2xl group-hover:scale-[1.02] group-hover:-translate-y-1 transition-transform duration-500 bg-white dark:bg-slate-850 flex flex-col">
+                                            <div className="w-full h-full relative z-0 rounded-lg overflow-hidden border border-white/10 shadow-2xl group-hover:scale-[1.02] group-hover:-translate-y-1 transition-transform duration-500 bg-slate-850 flex flex-col">
                                                 
-                                                {/* Top Bar of the Window */}
-                                                <div className="h-6 bg-slate-100 dark:bg-slate-900/80 border-b border-slate-200 dark:border-white/5 flex items-center px-3 gap-1.5 shrink-0">
-                                                    <div className="w-2 h-2 rounded-full bg-red-400 dark:bg-red-500/80"></div>
-                                                    <div className="w-2 h-2 rounded-full bg-yellow-400 dark:bg-yellow-500/80"></div>
-                                                    <div className="w-2 h-2 rounded-full bg-green-400 dark:bg-green-500/80"></div>
+                                                <div className="h-6 bg-slate-900/80 border-b border-white/5 flex items-center px-3 gap-1.5 shrink-0">
+                                                    <div className="w-2 h-2 rounded-full bg-red-500/80"></div>
+                                                    <div className="w-2 h-2 rounded-full bg-yellow-500/80"></div>
+                                                    <div className="w-2 h-2 rounded-full bg-green-500/80"></div>
                                                 </div>
                                                 
-                                                {/* AUTO-FIT IMAGE CONTAINER */}
-                                                {/* The class "object-cover" ensures the image fits cleanly without stretching */}
-                                                <div className="flex-1 relative bg-white dark:bg-[#050505] overflow-hidden flex items-center justify-center">
+                                                <div className="flex-1 relative bg-[#050505] overflow-hidden flex items-center justify-center">
                                                     <img 
                                                         src={project.image} 
                                                         alt={project.title} 
                                                         className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500"
                                                         onError={(e) => {
                                                             e.target.style.display = 'none';
-                                                            e.target.parentElement.innerHTML = `<div class="w-full h-full bg-slate-50 dark:bg-[#111116] flex items-center justify-center flex-col text-slate-500 gap-3 p-6 text-center"><i class="fa-solid fa-image text-3xl"></i><span class="font-mono text-sm border border-slate-300 dark:border-slate-700 rounded px-2 py-1">${project.image}</span><span class="text-xs">Asset Loading...</span></div>`;
+                                                            e.target.parentElement.innerHTML = `<div class="w-full h-full bg-[#111116] flex items-center justify-center flex-col text-slate-500 gap-3 p-6 text-center"><i class="fa-solid fa-image text-3xl"></i><span class="font-mono text-sm border border-slate-700 rounded px-2 py-1">${project.image}</span><span class="text-xs">Asset Loading...</span></div>`;
                                                         }}
                                                     />
                                                 </div>
@@ -297,27 +303,27 @@
                                         <div className="p-8 flex-1 flex flex-col relative z-20">
                                             <div className="flex items-center justify-between mb-4">
                                                 <div className="flex items-center gap-3">
-                                                    <div className="p-2 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-200 dark:border-white/10 shadow-sm dark:shadow-inner flex items-center justify-center w-10 h-10">
+                                                    <div className="p-2 bg-slate-950 rounded-lg border border-white/10 shadow-inner flex items-center justify-center w-10 h-10">
                                                         <i className={`${project.icon} text-lg`}></i>
                                                     </div>
-                                                    <span className="text-xs font-bold text-cyan-600 dark:text-cyan-400 tracking-wider uppercase">{project.category}</span>
+                                                    <span className="text-xs font-bold text-cyan-400 tracking-wider uppercase">{project.category}</span>
                                                 </div>
-                                                <span className="text-[10px] font-mono px-2 py-1 bg-slate-100 dark:bg-slate-900 rounded text-slate-500 dark:text-slate-400 border border-slate-200 dark:border-slate-800">
+                                                <span className="text-[10px] font-mono px-2 py-1 bg-slate-900 rounded text-slate-400 border border-slate-800">
                                                     {project.status}
                                                 </span>
                                             </div>
                                             
-                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors">
+                                            <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
                                                 {project.title}
                                             </h3>
                                             
-                                            <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8 font-light flex-1">
+                                            <p className="text-slate-400 leading-relaxed mb-8 font-light flex-1">
                                                 {project.description}
                                             </p>
                                             
                                             <div className="flex flex-wrap gap-2 mt-auto">
                                                 {project.tech.map((t, i) => (
-                                                    <span key={i} className="text-xs font-medium px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 rounded-lg shadow-sm">
+                                                    <span key={i} className="text-xs font-medium px-3 py-1.5 bg-slate-950 border border-white/10 text-slate-300 rounded-lg shadow-sm">
                                                         {t}
                                                     </span>
                                                 ))}
@@ -329,55 +335,50 @@
                         </div>
                     </section>
 
-                    {/* ===================================================================== */}
-                    {/* RESUME / PROFESSIONAL BACKGROUND SECTION */}
-                    {/* ===================================================================== */}
                     {}
-                    <section id="resume" className="py-24 relative z-10 border-t border-slate-200 dark:border-white/5 bg-gradient-to-b from-white to-slate-50 dark:from-[#0a0a0f] dark:to-[#050505]">
+                    <section id="resume" className="py-24 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#0a0a0f] to-[#050505]">
                         <div className="max-w-7xl mx-auto px-6">
                             <div className="mb-16 text-center md:text-left">
-                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white mb-4">Service Record & Experience</h2>
-                                <p className="text-slate-600 dark:text-slate-400 text-lg font-light max-w-2xl">Operational history, academic foundation, and technical competencies.</p>
+                                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Service Record & Experience</h2>
+                                <p className="text-slate-400 text-lg font-light max-w-2xl">Operational history, academic foundation, and technical competencies.</p>
                             </div>
 
                             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
                                 
-                                {/* Left Column: Work Experience */}
                                 <div className="lg:col-span-8 space-y-6">
-                                    <div className="bg-white dark:bg-[#0a0a0f]/80 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-3xl p-8 md:p-10 transition-all shadow-xl dark:shadow-2xl h-full">
-                                        <div className="flex items-center gap-4 mb-10 pb-6 border-b border-slate-100 dark:border-white/5">
+                                    <div className="bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10 transition-all shadow-2xl h-full">
+                                        <div className="flex items-center gap-4 mb-10 pb-6 border-b border-white/5">
                                             <div className="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20 flex items-center justify-center w-12 h-12">
-                                                <i className="fa-solid fa-briefcase text-indigo-600 dark:text-indigo-400 text-xl"></i>
+                                                <i className="fa-solid fa-briefcase text-indigo-400 text-xl"></i>
                                             </div>
-                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white">Operational History</h3>
+                                            <h3 className="text-2xl font-bold text-white">Operational History</h3>
                                         </div>
                                         
-                                        <div className="space-y-12 border-l border-slate-200 dark:border-slate-700 ml-3 pl-8 relative">
+                                        <div className="space-y-12 border-l border-slate-700 ml-3 pl-8 relative">
                                             {experience.map((job, idx) => (
                                                 <div key={idx} className="relative group">
-                                                    {/* Timeline Dot */}
-                                                    <div className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-white dark:bg-slate-900 border-2 border-indigo-500 dark:border-cyan-500 transition-colors shadow-sm dark:shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
+                                                    <div className="absolute -left-[41px] top-1 w-5 h-5 rounded-full bg-slate-900 border-2 border-cyan-500 transition-colors shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
 
                                                     <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-4 gap-3">
                                                         <div>
-                                                            <h4 className="text-xl font-bold text-slate-900 dark:text-white">{job.role}</h4>
-                                                            <div className="flex items-center gap-2 text-indigo-600 dark:text-indigo-400 font-medium mt-1">
+                                                            <h4 className="text-xl font-bold text-white">{job.role}</h4>
+                                                            <div className="flex items-center gap-2 text-indigo-400 font-medium mt-1">
                                                                 <span>{job.company}</span>
-                                                                <span className="text-slate-400 dark:text-slate-600">•</span>
-                                                                <span className="flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
+                                                                <span className="text-slate-600">•</span>
+                                                                <span className="flex items-center gap-1 text-sm text-slate-400">
                                                                     <i className="fa-solid fa-location-dot text-xs"></i> {job.location}
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                        <span className="inline-flex items-center px-3 py-1.5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 text-sm font-medium rounded-lg shadow-sm">
+                                                        <span className="inline-flex items-center px-3 py-1.5 bg-white/5 border border-white/10 text-slate-300 text-sm font-medium rounded-lg shadow-sm">
                                                             <i className="fa-regular fa-calendar mr-2"></i> {job.period}
                                                         </span>
                                                     </div>
                                                     
                                                     <ul className="space-y-3 mt-4">
                                                         {job.points.map((point, i) => (
-                                                            <li key={i} className="flex items-start gap-3 text-slate-600 dark:text-slate-400 font-light text-sm md:text-base">
-                                                                <span className="text-indigo-500 dark:text-cyan-500 mt-1 text-xs">▹</span>
+                                                            <li key={i} className="flex items-start gap-3 text-slate-400 font-light text-sm md:text-base">
+                                                                <span className="text-cyan-500 mt-1 text-xs">▹</span>
                                                                 <span className="leading-relaxed">{point}</span>
                                                             </li>
                                                         ))}
@@ -388,59 +389,55 @@
                                     </div>
                                 </div>
 
-                                {/* Right Column: Education & Skills */}
                                 <div className="lg:col-span-4 space-y-6">
-                                    
-                                    {/* Education Card */}
-                                    <div className="bg-white dark:bg-[#0a0a0f]/80 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-3xl p-8 transition-all shadow-xl dark:shadow-2xl">
+                                    <div className="bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all shadow-2xl">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20 flex items-center justify-center w-12 h-12">
-                                                <i className="fa-solid fa-graduation-cap text-cyan-600 dark:text-cyan-400 text-xl"></i>
+                                                <i className="fa-solid fa-graduation-cap text-cyan-400 text-xl"></i>
                                             </div>
-                                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Academy Training</h3>
+                                            <h3 className="text-xl font-bold text-white">Academy Training</h3>
                                         </div>
                                         
-                                        <div className="bg-slate-50 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/50 p-5 rounded-xl border-l-4 border-l-cyan-500">
-                                            <h4 className="font-bold text-slate-900 dark:text-white text-lg leading-tight mb-1">George Mason University</h4>
-                                            <p className="text-cyan-600 dark:text-cyan-400 font-medium text-sm">B.S. in Information Technology</p>
-                                            <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">Concentration: Cyber Security</p>
+                                        <div className="bg-slate-800/40 border border-slate-700/50 p-5 rounded-xl border-l-4 border-l-cyan-500">
+                                            <h4 className="font-bold text-white text-lg leading-tight mb-1">George Mason University</h4>
+                                            <p className="text-cyan-400 font-medium text-sm">B.S. in Information Technology</p>
+                                            <p className="text-slate-400 text-sm mt-1">Concentration: Cyber Security</p>
                                             
-                                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700/50 flex justify-between text-sm">
+                                            <div className="mt-4 pt-4 border-t border-slate-700/50 flex justify-between text-sm">
                                                 <span className="text-slate-500">Expected:</span>
-                                                <span className="font-medium text-slate-900 dark:text-white">May 2027</span>
+                                                <span className="font-medium text-white">May 2027</span>
                                             </div>
                                             <div className="mt-2 flex justify-between text-sm">
                                                 <span className="text-slate-500">Cum. GPA:</span>
-                                                <span className="font-medium text-slate-900 dark:text-white">3.5 / 4.0</span>
+                                                <span className="font-medium text-white">3.5 / 4.0</span>
                                             </div>
                                             
-                                            <div className="mt-4 pt-4 border-t border-slate-200 dark:border-slate-700/50">
+                                            <div className="mt-4 pt-4 border-t border-slate-700/50">
                                                 <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-2">
                                                     <i className="fa-solid fa-award text-yellow-500"></i> Honors
                                                 </p>
-                                                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+                                                <p className="text-xs text-slate-400 leading-relaxed">
                                                     Dean's List: Summer 2025, Fall 2025, Spring 2026, Summer 2026
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
 
-                                    {/* Skills Card */}
-                                    <div className="bg-white dark:bg-[#0a0a0f]/80 backdrop-blur-md border border-slate-200 dark:border-white/10 rounded-3xl p-8 transition-all shadow-xl dark:shadow-2xl">
+                                    <div className="bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 transition-all shadow-2xl">
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="p-3 bg-purple-500/10 rounded-xl border border-purple-500/20 flex items-center justify-center w-12 h-12">
-                                                <i className="fa-solid fa-microchip text-purple-600 dark:text-purple-400 text-xl"></i>
+                                                <i className="fa-solid fa-microchip text-purple-400 text-xl"></i>
                                             </div>
-                                            <h3 className="text-xl font-bold text-slate-900 dark:text-white">Core Competencies</h3>
+                                            <h3 className="text-xl font-bold text-white">Core Competencies</h3>
                                         </div>
                                         
                                         <div className="space-y-5">
                                             {skills.map((skill, index) => (
                                                 <div key={index}>
                                                     <div className="flex justify-between mb-1.5">
-                                                        <span className="text-xs font-medium text-slate-700 dark:text-slate-300">{skill.name}</span>
+                                                        <span className="text-xs font-medium text-slate-300">{skill.name}</span>
                                                     </div>
-                                                    <div className="h-1.5 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
+                                                    <div className="h-1.5 w-full bg-slate-800 rounded-full overflow-hidden">
                                                         <div 
                                                             className="h-full bg-gradient-to-r from-cyan-500 to-purple-500 rounded-full"
                                                             style={{ width: `${skill.level}%` }}
@@ -456,15 +453,12 @@
                         </div>
                     </section>
 
-                    {/* ===================================================================== */}
-                    {/* FOOTER & CONTACT SECTION */}
-                    {/* ===================================================================== */}
                     {}
-                    <footer id="contact" className="relative z-10 border-t border-slate-200 dark:border-white/5 bg-slate-50 dark:bg-[#050505] pt-20 pb-10">
+                    <footer id="contact" className="relative z-10 border-t border-white/5 bg-[#050505] pt-20 pb-10">
                         <div className="max-w-7xl mx-auto px-6">
                             
-                            {/* Call to action box */}
-                            <div className="bg-slate-900 dark:bg-slate-900/50 border border-slate-800 dark:border-white/10 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mb-16 relative overflow-hidden shadow-xl">
+                            {/* Hardcoded background colors here fix the text disappearing bug! */}
+                            <div className="bg-[#0a0a0f] border border-slate-800 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mb-16 relative overflow-hidden shadow-2xl">
                                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.15),transparent_50%)] pointer-events-none" />
                                 
                                 <div className="relative z-10 max-w-xl text-center md:text-left">
@@ -475,22 +469,23 @@
                                 </div>
                                 
                                 <div className="relative z-10 flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                                    <a href="mailto:mkharelwork@gmail.com" className="px-6 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold transition-all shadow-lg flex items-center justify-center gap-3">
-                                        <i className="fa-solid fa-envelope"></i>
-                                        Email Me
-                                    </a>
-                                    <a href="https://www.linkedin.com/in/mohit-kharel-645240251" target="_blank" rel="noreferrer" className="px-6 py-4 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-3 shadow-sm">
+                                    {/* Smart Email Button */}
+                                    <button onClick={handleEmailClick} className={`px-6 py-4 text-white rounded-xl font-semibold transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] flex items-center justify-center gap-3 cursor-pointer ${emailCopied ? 'bg-emerald-600 hover:bg-emerald-500 shadow-emerald-500/30' : 'bg-cyan-600 hover:bg-cyan-500'}`}>
+                                        <i className={emailCopied ? "fa-solid fa-check" : "fa-solid fa-envelope"}></i>
+                                        {emailCopied ? "Email Copied!" : "Email Me"}
+                                    </button>
+                                    
+                                    <a href="https://www.linkedin.com/in/mohit-kharel-645240251" target="_blank" rel="noreferrer" className="px-6 py-4 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-3 shadow-sm cursor-pointer">
                                         <i className="fa-brands fa-linkedin text-[#0A66C2] text-xl"></i>
                                         LinkedIn
                                     </a>
                                 </div>
                             </div>
                             
-                            {/* Bottom Info Row */}
-                            <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500 border-t border-slate-200 dark:border-white/5 pt-8">
+                            <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-sm text-slate-500 border-t border-white/5 pt-8">
                                 <div className="flex items-center gap-3">
                                     <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-lg flex items-center justify-center text-white text-xs font-bold shadow-sm">MK</div>
-                                    <span className="font-medium text-slate-700 dark:text-slate-400">Mohit Kharel</span>
+                                    <span className="font-medium text-slate-400">Mohit Kharel</span>
                                 </div>
                                 
                                 <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
