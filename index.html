@@ -68,7 +68,7 @@
         const { useState, useEffect } = React;
 
         // =====================================================================
-        //  EDIT  PROJECTS 
+        // 📁 EDIT YOUR PROJECTS HERE
         // Add, remove, or modify the projects displayed in the "Deployments" section
         // =====================================================================
         const projects = [
@@ -115,7 +115,7 @@
         ];
 
         // =====================================================================
-        // EDIT  SKILLS 
+        // 🧠 EDIT YOUR SKILLS HERE
         // =====================================================================
         const skills = [
             { name: "Enterprise Networking (TCP/IP, LAN/WAN, VPN)", level: 90 },
@@ -126,7 +126,7 @@
         ];
 
         // =====================================================================
-        //  EDIT  WORK EXPERIENCE 
+        // 💼 EDIT YOUR WORK EXPERIENCE HERE
         // =====================================================================
         const experience = [
             {
@@ -146,6 +146,15 @@
         function App() {
             const [scrolled, setScrolled] = useState(false);
             const [activeProject, setActiveProject] = useState(null);
+
+            // Function to handle smooth scrolling without changing the URL hash
+            const scrollToSection = (e, id) => {
+                e.preventDefault();
+                const element = document.getElementById(id);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+            };
 
             // This tracks when the user scrolls down the page to change the navigation bar color
             useEffect(() => {
@@ -185,16 +194,16 @@
                                 <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Mohit Kharel</span>
                             </div>
                             <div className="hidden md:flex gap-8 text-sm font-medium text-slate-600 dark:text-slate-400">
-                                <a href="about" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Overview</a>
-                                <a href="projects" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Solutions</a>
-                                <a href="resume" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Service Record</a>
-                                <a href="contact" className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Contact</a>
+                                <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Overview</a>
+                                <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Solutions</a>
+                                <a href="#resume" onClick={(e) => scrollToSection(e, 'resume')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Service Record</a>
+                                <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors cursor-pointer">Contact</a>
                             </div>
                         </div>
                     </nav>
 
                     {/* ===================================================================== */}
-                    {/*  (Top part of the website) */}
+                    {/* HERO SECTION (Top part of the website) */}
                     {/* ===================================================================== */}
                     {}
                     <section id="about" className="relative pt-40 pb-20 md:pt-48 md:pb-32 z-10 flex flex-col items-center text-center">
@@ -221,11 +230,11 @@
                             </p>
                             
                             <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
-                                <a href="#projects" className="px-8 py-4 bg-slate-900 text-white dark:bg-white dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-lg dark:shadow-[0_0_30px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2">
+                                <a href="#projects" onClick={(e) => scrollToSection(e, 'projects')} className="px-8 py-4 bg-slate-900 text-white dark:bg-white dark:text-slate-950 hover:bg-slate-800 dark:hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-lg dark:shadow-[0_0_30px_rgba(255,255,255,0.1)] flex items-center justify-center gap-2 cursor-pointer">
                                     View Solutions
                                     <i className="fa-solid fa-arrow-right text-sm"></i>
                                 </a>
-                                <a href="#contact" className="px-8 py-4 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-xl font-medium transition-all shadow-sm flex items-center justify-center">
+                                <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="px-8 py-4 bg-white dark:bg-slate-900/50 hover:bg-slate-50 dark:hover:bg-slate-800 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-xl font-medium transition-all shadow-sm flex items-center justify-center cursor-pointer">
                                     Contact Me
                                 </a>
                             </div>
@@ -455,22 +464,22 @@
                         <div className="max-w-7xl mx-auto px-6">
                             
                             {/* Call to action box */}
-                            <div className="bg-white dark:bg-gradient-to-br dark:from-[#0a0a0f] dark:to-[#050505] border border-slate-200 dark:border-white/10 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mb-16 relative overflow-hidden shadow-xl dark:shadow-2xl">
-                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.1),transparent_50%)] pointer-events-none" />
+                            <div className="bg-slate-900 dark:bg-slate-900/50 border border-slate-800 dark:border-white/10 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mb-16 relative overflow-hidden shadow-xl">
+                                <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.15),transparent_50%)] pointer-events-none" />
                                 
                                 <div className="relative z-10 max-w-xl text-center md:text-left">
-                                    <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Let's build something secure.</h2>
-                                    <p className="text-slate-600 dark:text-slate-400 text-lg font-light">
+                                    <h2 className="text-3xl font-bold text-white mb-4">Let's build something secure.</h2>
+                                    <p className="text-slate-300 text-lg font-light">
                                         Currently looking for opportunities in IT Support, System Administration, and Cyber Security. Let's connect.
                                     </p>
                                 </div>
                                 
                                 <div className="relative z-10 flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-                                    <a href="mailto:mkharelwork@gmail.com" className="px-6 py-4 bg-slate-900 text-white dark:bg-white dark:text-[#050505] hover:bg-slate-800 dark:hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-lg flex items-center justify-center gap-3">
+                                    <a href="mailto:mkharelwork@gmail.com" className="px-6 py-4 bg-cyan-600 hover:bg-cyan-500 text-white rounded-xl font-semibold transition-all shadow-lg flex items-center justify-center gap-3">
                                         <i className="fa-solid fa-envelope"></i>
                                         Email Me
                                     </a>
-                                    <a href="https://www.linkedin.com/in/mohit-kharel-645240251" target="_blank" rel="noreferrer" className="px-6 py-4 bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:hover:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-3 shadow-sm">
+                                    <a href="https://www.linkedin.com/in/mohit-kharel-645240251" target="_blank" rel="noreferrer" className="px-6 py-4 bg-white/10 hover:bg-white/20 border border-white/10 text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-3 shadow-sm">
                                         <i className="fa-brands fa-linkedin text-[#0A66C2] text-xl"></i>
                                         LinkedIn
                                     </a>
