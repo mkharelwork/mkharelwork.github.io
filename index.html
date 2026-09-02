@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { 
-  ShieldCheck, 
+  Shield, 
   Server, 
   Network, 
   Cpu, 
@@ -11,9 +11,10 @@ import {
   GraduationCap,
   Briefcase,
   ChevronRight,
-  ExternalLink,
   Lock,
-  Phone
+  Phone,
+  Activity,
+  Award
 } from 'lucide-react';
 
 const projects = [
@@ -24,7 +25,7 @@ const projects = [
     description: "Engineered automated incident response workflows using Tines and Webhooks. Integrated AI-driven summarization tools to parse raw SIEM data, drastically reducing analyst response times and accelerating alert tracking.",
     tech: ["Tines", "Python", "SIEM", "Webhooks", "AI Integration"],
     image: "siem.png",
-    icon: <Server className="w-5 h-5 text-cyan-400" />
+    icon: <Activity className="w-5 h-5 text-cyan-400" />
   },
   {
     id: "vpn",
@@ -42,7 +43,7 @@ const projects = [
     description: "Deployed and maintained a comprehensive virtualized environment using Proxmox. Managed self-hosted networking, DNS filtering, reverse proxies, and system monitoring utilizing Linux containers and VMs.",
     tech: ["Proxmox", "Linux", "LXC/VMs", "DNS", "Reverse Proxy"],
     image: "mcp.png",
-    icon: <Cpu className="w-5 h-5 text-violet-400" />
+    icon: <Server className="w-5 h-5 text-purple-400" />
   },
   {
     id: "detection",
@@ -51,7 +52,7 @@ const projects = [
     description: "Synthesized complex technical workflows for proactive threat monitoring. Validated seamless, secure traffic flow across simulated enterprise boundaries to mitigate unauthorized access.",
     tech: ["Telemetry", "TCP/IP", "Open Source Intelligence"],
     image: "osnit.png",
-    icon: <ShieldCheck className="w-5 h-5 text-emerald-400" />
+    icon: <Shield className="w-5 h-5 text-emerald-400" />
   }
 ];
 
@@ -66,7 +67,7 @@ const experience = [
     role: "IT Support & Technical Assistant",
     company: "Palanchock Eyebrows",
     location: "Herndon, VA",
-    period: "Jan 2026 ",
+    period: "Jan 2026 - Present",
     points: [
       "Diagnosed critical hardware, software, and peripheral failures, deploying targeted solutions to restore full functionality and eliminate user downtime.",
       "Identified inefficiencies in service request tracking, establishing strict documentation standards that improved troubleshooting speed by 20%.",
@@ -89,20 +90,21 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0a0a0c] text-slate-300 font-sans selection:bg-cyan-500/30 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen bg-[#050505] text-slate-300 font-sans selection:bg-cyan-500/30 selection:text-white overflow-x-hidden">
       
-      {/* Dynamic Dark Background Elements */}
+      {/* Modern SaaS Dark Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-cyan-900/10 blur-[120px]" />
         <div className="absolute top-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-indigo-900/10 blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] rounded-full bg-violet-900/10 blur-[100px]" />
+        <div className="absolute bottom-[-10%] left-[20%] w-[40%] h-[40%] rounded-full bg-purple-900/10 blur-[120px]" />
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wMykiLz48L3N2Zz4=')] [mask-image:linear-gradient(to_bottom,white,transparent)] z-0" />
       </div>
 
+      {/* Navigation Bar */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#0a0a0c]/80 backdrop-blur-xl border-b border-white/5 py-4 shadow-2xl shadow-black/50' : 'bg-transparent py-6'
+        scrolled ? 'bg-[#050505]/80 backdrop-blur-xl border-b border-white/5 py-4 shadow-2xl shadow-black/50' : 'bg-transparent py-6'
       }`}>
-        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-cyan-500 to-indigo-600 rounded-xl flex items-center justify-center text-white font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)]">
               MK
@@ -112,26 +114,27 @@ export default function App() {
           <div className="hidden md:flex gap-8 text-sm font-medium text-slate-400">
             <a href="#about" className="hover:text-cyan-400 transition-colors">Overview</a>
             <a href="#projects" className="hover:text-cyan-400 transition-colors">Solutions</a>
-            <a href="#resume" className="hover:text-cyan-400 transition-colors">Experience</a>
+            <a href="#experience" className="hover:text-cyan-400 transition-colors">Experience</a>
             <a href="#contact" className="hover:text-cyan-400 transition-colors">Contact</a>
           </div>
         </div>
       </nav>
 
-      <section id="about" className="relative pt-40 pb-20 md:pt-48 md:pb-32 z-10">
-        <div className="max-w-6xl mx-auto px-6 relative flex flex-col items-start">
+      {}
+      <section id="about" className="relative pt-40 pb-20 md:pt-48 md:pb-32 z-10 flex flex-col items-center text-center">
+        <div className="max-w-4xl mx-auto px-6 relative flex flex-col items-center">
           
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm font-medium mb-8 backdrop-blur-md shadow-lg">
             <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-500"></span>
             </span>
             CompTIA Security+ Expected 10/2026
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 max-w-4xl leading-[1.1] text-white">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-6 leading-[1.1] text-white">
             Engineering robust <br className="hidden md:block"/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-violet-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-indigo-400 to-purple-400">
               infrastructure & security.
             </span>
           </h1>
@@ -140,8 +143,8 @@ export default function App() {
             I'm a Senior IT student specializing in cyber security, system monitoring, and hardware deployment. I build practical technical solutions, automate workflows, and prevent infrastructure problems before they impact users.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            <a href="#projects" className="px-8 py-4 bg-white text-[#0a0a0c] hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2">
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto justify-center">
+            <a href="#projects" className="px-8 py-4 bg-white text-[#050505] hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:shadow-[0_0_40px_rgba(255,255,255,0.2)] flex items-center justify-center gap-2">
               View Solutions
               <ArrowRight className="w-4 h-4" />
             </a>
@@ -152,53 +155,60 @@ export default function App() {
         </div>
       </section>
 
-      <section id="projects" className="py-24 relative z-10 border-t border-white/5 bg-black/20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-16 md:flex justify-between items-end">
-            <div className="max-w-2xl">
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Featured Solutions</h2>
-              <p className="text-slate-400 text-lg font-light">Independent labs and architectural deployments demonstrating proactive security, virtualization, and networking.</p>
-            </div>
+      {}
+      <section id="projects" className="py-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Featured Solutions</h2>
+            <p className="text-slate-400 text-lg font-light max-w-2xl">Independent labs and architectural deployments demonstrating proactive security, virtualization, and networking.</p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {projects.map((project) => (
               <div 
                 key={project.id} 
                 onMouseEnter={() => setActiveProject(project.id)}
                 onMouseLeave={() => setActiveProject(null)}
-                className="group relative bg-[#111116] border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/30 flex flex-col"
+                className="group relative bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden transition-all duration-500 hover:border-cyan-500/30 flex flex-col hover:shadow-[0_8px_30px_rgb(0,0,0,0.5)]"
               >
-                {/* Glow Effect */}
-                <div className={`absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-transparent opacity-0 transition-opacity duration-500 ${activeProject === project.id ? 'opacity-100' : ''}`} />
+                {/* Glow Effect Top Border */}
+                <div className={`absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500 to-transparent opacity-0 transition-opacity duration-500 ${activeProject === project.id ? 'opacity-100' : ''}`} />
 
-                {/* Project Image Container */}
-                <div className="w-full aspect-[16/10] bg-[#0a0a0c] relative overflow-hidden flex items-center justify-center border-b border-white/5 p-6 md:p-10">
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#111116] to-transparent opacity-50 z-10" />
+                {/* Project Image Showcase (SaaS Style) */}
+                <div className="w-full aspect-[16/9] bg-[#111116] relative overflow-hidden flex items-center justify-center border-b border-white/5 p-4 md:p-8">
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-transparent to-transparent opacity-80 z-10" />
                   
-                  <img 
-                    src={project.image} 
-                    alt={project.title} 
-                    className="w-full h-full object-cover rounded-xl border border-white/10 shadow-2xl group-hover:scale-[1.03] group-hover:-translate-y-2 transition-all duration-500 relative z-0"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.parentElement.innerHTML = `<div class="w-full h-full bg-[#1a1a24] rounded-xl shadow-inner border border-white/5 flex items-center justify-center flex-col text-slate-500 gap-3"><span class="font-mono text-sm">${project.image}</span></div>`;
-                    }}
-                  />
+                  {/* Image wrapper mimicking a browser or app window */}
+                  <div className="w-full h-full relative z-0 rounded-lg overflow-hidden border border-white/10 shadow-2xl group-hover:scale-[1.02] group-hover:-translate-y-1 transition-transform duration-500 bg-slate-900 flex flex-col">
+                     <div className="h-6 bg-slate-800/80 border-b border-white/5 flex items-center px-3 gap-1.5 shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-red-500/80"></div>
+                        <div className="w-2 h-2 rounded-full bg-yellow-500/80"></div>
+                        <div className="w-2 h-2 rounded-full bg-green-500/80"></div>
+                     </div>
+                     <div className="flex-1 relative bg-[#050505]">
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            e.target.style.display = 'none';
+                            e.target.parentElement.innerHTML = `<div class="w-full h-full bg-[#111116] flex items-center justify-center flex-col text-slate-500 gap-3 p-6 text-center"><span class="font-mono text-sm border border-slate-700 rounded px-2 py-1">${project.image}</span><span class="text-xs">Image loading...</span></div>`;
+                          }}
+                        />
+                     </div>
+                  </div>
                 </div>
 
                 {/* Project Details */}
                 <div className="p-8 flex-1 flex flex-col relative z-20">
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="p-2.5 bg-white/5 rounded-xl border border-white/10 text-cyan-400">
-                        {project.icon}
-                      </div>
-                      <span className="text-xs font-bold text-slate-400 tracking-wider uppercase">{project.category}</span>
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="p-2 bg-white/5 rounded-lg border border-white/10 shadow-inner">
+                      {project.icon}
                     </div>
+                    <span className="text-xs font-bold text-cyan-400 tracking-wider uppercase">{project.category}</span>
                   </div>
                   
-                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors">
                     {project.title}
                   </h3>
                   
@@ -208,7 +218,7 @@ export default function App() {
                   
                   <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tech.map((t, i) => (
-                      <span key={i} className="text-xs font-medium px-3 py-1.5 bg-white/5 border border-white/10 text-slate-300 rounded-lg backdrop-blur-sm">
+                      <span key={i} className="text-xs font-medium px-3 py-1.5 bg-white/5 border border-white/10 text-slate-300 rounded-lg">
                         {t}
                       </span>
                     ))}
@@ -220,10 +230,11 @@ export default function App() {
         </div>
       </section>
 
-      <section id="resume" className="py-24 relative z-10">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Background & Experience</h2>
+      {}
+      <section id="experience" className="py-24 relative z-10 border-t border-white/5 bg-gradient-to-b from-[#0a0a0f] to-[#050505]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="mb-16 text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">Professional Background</h2>
             <p className="text-slate-400 text-lg font-light max-w-2xl">A foundation in information technology, combining academic rigor with hands-on support and infrastructure management.</p>
           </div>
 
@@ -231,12 +242,12 @@ export default function App() {
             
             {/* Experience Column */}
             <div className="lg:col-span-8 space-y-6">
-              <div className="bg-[#111116] border border-white/10 rounded-3xl p-8 md:p-10 hover:border-white/20 transition-colors">
+              <div className="bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10 hover:border-white/20 transition-all shadow-xl">
                 <div className="flex items-center gap-4 mb-10 pb-6 border-b border-white/5">
                   <div className="p-3 bg-indigo-500/10 rounded-xl border border-indigo-500/20">
                     <Briefcase className="w-6 h-6 text-indigo-400" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">Professional Experience</h3>
+                  <h3 className="text-2xl font-bold text-white">Experience</h3>
                 </div>
                 
                 <div className="space-y-12">
@@ -272,11 +283,11 @@ export default function App() {
               </div>
             </div>
 
-            {/* Education & Skills Column */}
+            {}
             <div className="lg:col-span-4 space-y-6">
               
               {/* Education Card */}
-              <div className="bg-[#111116] border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-colors">
+              <div className="bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all shadow-xl">
                 <div className="flex items-center gap-4 mb-8">
                   <div className="p-3 bg-cyan-500/10 rounded-xl border border-cyan-500/20">
                     <GraduationCap className="w-6 h-6 text-cyan-400" />
@@ -285,13 +296,13 @@ export default function App() {
                 </div>
                 
                 <div>
-                  <h4 className="font-bold text-white text-lg">George Mason University</h4>
-                  <p className="text-cyan-400 font-medium text-sm mt-1">B.S. in Information Technology</p>
+                  <h4 className="font-bold text-white text-lg leading-tight">George Mason University</h4>
+                  <p className="text-cyan-400 font-medium text-sm mt-2">B.S. in Information Technology</p>
                   <p className="text-slate-400 text-sm mt-1 font-light">Concentration: Cyber Security</p>
                   
-                  <div className="mt-6 space-y-3 p-4 bg-white/5 rounded-xl border border-white/5">
+                  <div className="mt-6 space-y-3 p-4 bg-[#050505] rounded-xl border border-white/5">
                     <p className="text-sm text-slate-400 flex justify-between items-center">
-                      <span>Graduation</span> 
+                      <span>Expected</span> 
                       <span className="font-medium text-white px-2 py-1 bg-white/10 rounded">May 2027</span>
                     </p>
                     <p className="text-sm text-slate-400 flex justify-between items-center">
@@ -301,23 +312,24 @@ export default function App() {
                   </div>
                   
                   <div className="mt-6 pt-6 border-t border-white/5">
-                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3">Honors & Awards</p>
-                    <p className="text-sm text-slate-300 font-light flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-500"></span>
-                      Dean's List (Summer '25 - Summer '26)
+                    <p className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <Award className="w-4 h-4" /> Honors
+                    </p>
+                    <p className="text-sm text-slate-300 font-light leading-relaxed">
+                      Dean's List: Summer '25, Fall '25, Spring '26, Summer '26
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Technical Skills Card */}
-              <div className="bg-[#111116] border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-colors">
+              <div className="bg-[#0a0a0f]/80 backdrop-blur-md border border-white/10 rounded-3xl p-8 hover:border-white/20 transition-all shadow-xl">
                 <h3 className="text-xl font-bold text-white mb-6">Core Competencies</h3>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill, idx) => (
                     <span 
                       key={idx} 
-                      className="text-sm px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg text-slate-300 font-medium hover:bg-white/10 transition-colors"
+                      className="text-sm px-3 py-1.5 bg-[#050505] border border-white/10 rounded-lg text-slate-300 font-medium hover:bg-white/5 transition-colors"
                     >
                       {skill}
                     </span>
@@ -330,11 +342,12 @@ export default function App() {
         </div>
       </section>
 
-      <footer id="contact" className="relative z-10 border-t border-white/5 bg-[#0a0a0c] pt-20 pb-10">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="bg-gradient-to-br from-[#111116] to-[#0a0a0c] border border-white/10 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mb-20 relative overflow-hidden shadow-2xl">
+      {}
+      <footer id="contact" className="relative z-10 border-t border-white/5 bg-[#050505] pt-20 pb-10">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="bg-gradient-to-br from-[#0a0a0f] to-[#050505] border border-white/10 rounded-3xl p-10 md:p-16 flex flex-col md:flex-row items-center justify-between gap-8 mb-20 relative overflow-hidden shadow-2xl">
             {/* Decorative background glow for footer CTA */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.15),transparent_50%)] pointer-events-none" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(6,182,212,0.1),transparent_50%)] pointer-events-none" />
             
             <div className="relative z-10 max-w-xl text-center md:text-left">
               <h2 className="text-3xl font-bold text-white mb-4">Let's build something secure.</h2>
@@ -344,13 +357,13 @@ export default function App() {
             </div>
             
             <div className="relative z-10 flex flex-col sm:flex-row gap-4 w-full md:w-auto">
-              <a href="mailto:mkharelwork@gmail.com" className="px-6 py-4 bg-white text-[#0a0a0c] hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] flex items-center justify-center gap-3">
+              <a href="mailto:mkharelwork@gmail.com" className="px-6 py-4 bg-white text-[#050505] hover:bg-slate-200 rounded-xl font-semibold transition-all shadow-[0_0_20px_rgba(255,255,255,0.1)] flex items-center justify-center gap-3">
                 <Mail className="w-5 h-5" />
-                mkharelwork@gmail.com
+                Email Me
               </a>
               <a href="https://www.linkedin.com/in/mohit-kharel-645240251" target="_blank" rel="noreferrer" className="px-6 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-medium transition-colors flex items-center justify-center gap-3 backdrop-blur-sm">
                 <Linkedin className="w-5 h-5 text-[#0A66C2]" />
-                LinkedIn Profile
+                LinkedIn
               </a>
             </div>
           </div>
@@ -361,20 +374,24 @@ export default function App() {
               <span className="font-medium text-slate-400">Mohit Kharel</span>
             </div>
             
-            <div className="flex items-center gap-6">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
               <div className="flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 Washington, D.C. Area
               </div>
               <div className="flex items-center gap-2">
-                <ShieldCheck className="w-4 h-4" />
+                <Shield className="w-4 h-4" />
                 U.S. Citizen
               </div>
+              <div className="flex items-center gap-2">
+                <Phone className="w-4 h-4" />
+                703-863-0199
+              </div>
             </div>
-
-            <p>
-              © {new Date().getFullYear()} Mohit Kharel.
-            </p>
+          </div>
+          
+          <div className="text-center text-xs text-slate-600 mt-8">
+            © {new Date().getFullYear()} Mohit Kharel.
           </div>
         </div>
       </footer>
